@@ -1,0 +1,32 @@
+# SCIENTIFICALLY UNCONVERGED LOCAL SMOKE TEST.
+# This profile only checks installation, input generation and local pw.x wiring.
+# It generates no defect supercells and must not be used for physical conclusions.
+profile: local_smoke
+pseudopotentials:
+  pseudo_dir: pseudos
+  files:
+    Al: Al.us.pbe.z_3.ld1.psl.v1.0.0-low.upf
+settings:
+  qe_command: pw.x
+  pseudo_dir: pseudos
+  input_dft: PBE
+  ecutwfc_ry: 20
+  ecutrho_ry: 160
+  kpoints: [2, 2, 2]
+  occupations: smearing
+  smearing: mv
+  degauss_ry: 0.02
+  conv_thr: 1.0e-6
+  forc_conv_thr: 1.0e-3
+  press_conv_thr: 1.0
+  electron_maxstep: 40
+  shell_tolerance_angstrom: 0.03
+  nstep: 0
+  disk_io: low
+  tstress: true
+  tprnfor: true
+cases:
+  smoke: true
+  include_elemental_refs: false
+  include_defects: false
+  include_convergence: false

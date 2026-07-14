@@ -1,0 +1,38 @@
+{
+  "case_id": "conv_cutoff_al_ecut40",
+  "case_type": "convergence_cutoff",
+  "composition": "Al",
+  "atom_count": 1,
+  "calculation_type": "scf",
+  "convergence_parameter": "ecutwfc_ry",
+  "convergence_value": 40,
+  "required_symbols": [
+    "Al"
+  ],
+  "calculation_settings": {
+    "calculation": "scf",
+    "ecutwfc": 40,
+    "ecutrho": 320,
+    "kpoints": [
+      8,
+      8,
+      8
+    ],
+    "occupations": "smearing",
+    "smearing": "mv",
+    "degauss": 0.02,
+    "conv_thr": 1e-08,
+    "forc_conv_thr": 0.0001,
+    "press_conv_thr": 0.5,
+    "electron_maxstep": 100,
+    "nstep": null,
+    "disk_io": "low",
+    "tstress": true,
+    "tprnfor": true
+  },
+  "pseudopotential_identifiers": {
+    "Al": "Al.us.pbe.z_3.ld1.psl.v1.0.0-low.upf",
+    "Mg": "Mg.us.pbe.z_10.uspp.gbrv.v1.4.upf",
+    "Si": "Si.us.pbe.z_4.ld1.psl.v1.0.0-high.upf"
+  }
+}

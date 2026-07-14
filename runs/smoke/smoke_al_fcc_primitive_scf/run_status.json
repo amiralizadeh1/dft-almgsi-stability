@@ -1,0 +1,23 @@
+{
+  "case_id": "smoke_al_fcc_primitive_scf",
+  "status": "completed",
+  "start_time_utc": "2026-07-13T21:03:45.575386+00:00",
+  "command": [
+    "pw.x"
+  ],
+  "git_commit": null,
+  "output_path": "runs/smoke/smoke_al_fcc_primitive_scf/pw.out",
+  "job_done": true,
+  "scf_converged": true,
+  "ionic_converged": false,
+  "fatal_error": false,
+  "total_energy_ev": -69.20451057148435,
+  "atom_count": 1,
+  "scf_iterations": 4,
+  "wall_time_seconds": 1.04,
+  "final_force_ry_bohr": 0.0,
+  "final_pressure_kbar": -61.24,
+  "valid_result": true,
+  "returncode": 0,
+  "finish_time_utc": "2026-07-13T21:03:47.581856+00:00"
+}

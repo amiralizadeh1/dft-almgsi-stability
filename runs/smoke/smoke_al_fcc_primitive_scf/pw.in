@@ -1,0 +1,49 @@
+&CONTROL
+   calculation      = 'scf'
+   nstep            = 0
+   tstress          = .true.
+   tprnfor          = .true.
+   outdir           = 'qe_tmp'
+   prefix           = 'smoke_al_fcc_primitive_scf'
+   disk_io          = 'low'
+   pseudo_dir       = '../../../pseudos'
+/
+&SYSTEM
+   ecutwfc          = 20
+   ecutrho          = 160
+   occupations      = 'smearing'
+   degauss          = 0.02
+   smearing         = 'mv'
+   input_dft        = 'PBE'
+   ntyp             = 1
+   nat              = 1
+   ibrav            = 0
+/
+&ELECTRONS
+   electron_maxstep = 40
+   conv_thr         = 1e-06
+/
+&IONS
+   ion_dynamics     = 'bfgs'
+/
+&CELL
+   press_conv_thr   = 1.0
+/
+&FCP
+/
+&RISM
+/
+ATOMIC_SPECIES
+Al 26.9815385 Al.us.pbe.z_3.ld1.psl.v1.0.0-low.upf
+
+K_POINTS automatic
+2 2 2  0 0 0
+
+CELL_PARAMETERS angstrom
+0.00000000000000 2.02500000000000 2.02500000000000
+2.02500000000000 0.00000000000000 2.02500000000000
+2.02500000000000 2.02500000000000 0.00000000000000
+
+ATOMIC_POSITIONS angstrom
+Al 0.0000000000 0.0000000000 0.0000000000  
+

@@ -1,0 +1,53 @@
+{
+  "case_id": "ref_Si_diamond",
+  "case_type": "elemental_reference",
+  "composition": "Si2",
+  "atom_count": 2,
+  "cell_vectors_angstrom": [
+    [
+      0.0,
+      2.715,
+      2.715
+    ],
+    [
+      2.715,
+      0.0,
+      2.715
+    ],
+    [
+      2.715,
+      2.715,
+      0.0
+    ]
+  ],
+  "required_symbols": [
+    "Si"
+  ],
+  "calculation_type": "vc-relax",
+  "calculation_settings": {
+    "calculation": "vc-relax",
+    "ecutwfc": 20,
+    "ecutrho": 160,
+    "kpoints": [
+      2,
+      2,
+      2
+    ],
+    "occupations": "fixed",
+    "smearing": "mv",
+    "degauss": 0.02,
+    "conv_thr": 1e-08,
+    "forc_conv_thr": 0.0001,
+    "press_conv_thr": 0.5,
+    "electron_maxstep": 100,
+    "nstep": null,
+    "disk_io": "low",
+    "tstress": true,
+    "tprnfor": true
+  },
+  "pseudopotential_identifiers": {
+    "Al": "Al.us.pbe.z_3.ld1.psl.v1.0.0-low.upf",
+    "Mg": "Mg.us.pbe.z_10.uspp.gbrv.v1.4.upf",
+    "Si": "Si.us.pbe.z_4.ld1.psl.v1.0.0-high.upf"
+  }
+}

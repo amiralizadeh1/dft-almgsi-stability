@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "First-Principles Stability and Early Solute Clustering in Al-Mg-Si"
+message: "If you use this repository, please cite it using the metadata below after replacing placeholders."
+type: software
+authors:
+  - family-names: "AUTHOR_FAMILY_NAME_PLACEHOLDER"
+    given-names: "AUTHOR_GIVEN_NAME_PLACEHOLDER"
+    orcid: "ORCID_PLACEHOLDER"
+repository-code: "REPOSITORY_URL_PLACEHOLDER"
+version: "RELEASE_VERSION_PLACEHOLDER"
+date-released: "RELEASE_DATE_PLACEHOLDER"
+license: MIT

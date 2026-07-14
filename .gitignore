@@ -1,0 +1,55 @@
+.venv/
+.venv-wsl
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+
+# Manually downloaded pseudopotentials must not be committed.
+pseudos/*.UPF
+
+# Quantum ESPRESSO scratch, wavefunctions and restart data.
+qe_tmp/
+tmp/
+*.save/
+*.wfc*
+*.igk*
+*.evc*
+*.hub
+*.occup
+charge-density*
+*charge-density*
+*.mix*
+*.mix1
+*.mix2
+*.mix3
+*.dat
+*.xml
+*.hdf5
+*.h5
+*.restart
+interrupted_*/
+
+# Large temporary archives.
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+*.rar
+
+# Operating-system and editor files.
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo

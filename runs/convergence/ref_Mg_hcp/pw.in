@@ -1,0 +1,49 @@
+&CONTROL
+   calculation      = 'vc-relax'
+   tstress          = .true.
+   tprnfor          = .true.
+   outdir           = 'qe_tmp'
+   prefix           = 'ref_Mg_hcp'
+   disk_io          = 'low'
+   pseudo_dir       = '../../../pseudos'
+/
+&SYSTEM
+   ecutwfc          = 20
+   ecutrho          = 160
+   occupations      = 'smearing'
+   degauss          = 0.02
+   smearing         = 'mv'
+   input_dft        = 'PBE'
+   ntyp             = 1
+   nat              = 2
+   ibrav            = 0
+/
+&ELECTRONS
+   electron_maxstep = 100
+   conv_thr         = 1e-08
+/
+&IONS
+   ion_dynamics     = 'bfgs'
+/
+&CELL
+   press_conv_thr   = 0.5
+/
+&FCP
+/
+&RISM
+/
+ATOMIC_SPECIES
+Mg 24.305 Mg.us.pbe.z_10.uspp.gbrv.v1.4.upf
+
+K_POINTS automatic
+2 2 2  0 0 0
+
+CELL_PARAMETERS angstrom
+3.21000000000000 0.00000000000000 0.00000000000000
+-1.60500000000000 2.77994154614805 0.00000000000000
+0.00000000000000 0.00000000000000 5.21000000000000
+
+ATOMIC_POSITIONS angstrom
+Mg 0.0000000000 0.0000000000 0.0000000000  
+Mg -0.0000000000 1.8532943641 2.6050000000  
+

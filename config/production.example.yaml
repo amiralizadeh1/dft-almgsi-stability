@@ -1,0 +1,32 @@
+# Copy to config/production.yaml and replace CHOOSE_ME/UNRESOLVED/null values.
+# Validation rejects unresolved production settings. Generation writes inputs only.
+profile: production
+pseudopotentials:
+  pseudo_dir: pseudos
+  files:
+    Al: Al.us.pbe.z_3.ld1.psl.v1.0.0-low.upf
+    Mg: Mg.us.pbe.z_10.uspp.gbrv.v1.4.upf
+    Si: Si.us.pbe.z_4.ld1.psl.v1.0.0-high.upf
+settings:
+  qe_command: pw.x
+  pseudo_dir: pseudos
+  input_dft: PBE
+  ecutwfc_ry: CHOOSE_ME
+  ecutrho_ry: CHOOSE_ME
+  kpoints: CHOOSE_ME
+  occupations: smearing
+  smearing: mv
+  degauss_ry: CHOOSE_ME
+  si_occupations: fixed
+  conv_thr: 1.0e-8
+  forc_conv_thr: 1.0e-4
+  press_conv_thr: 0.5
+  electron_maxstep: 120
+  disk_io: low
+  tstress: true
+  tprnfor: true
+  shell_tolerance_angstrom: 0.03
+cases:
+  include_elemental_refs: true
+  include_defects: true
+  include_convergence: false

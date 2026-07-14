@@ -1,0 +1,2 @@
+case_id,case_type,composition,calculation_type,atom_count,neighbour_shell,initial_pair_distance_angstrom,final_pair_distance_angstrom,total_energy_ev,energy_per_atom_ev,scf_converged,ionic_converged,job_done,valid_result,ecutwfc_ry,ecutrho_ry,kpoints,smearing,degauss_ry,pseudopotential_identifiers,wall_time_seconds,output_path
+smoke_al_fcc_primitive_scf,smoke,Al,scf,1,,,,-69.20451057148435,-69.20451057148435,True,False,True,True,20,160,"[2, 2, 2]",mv,0.02,{'Al': 'Al.us.pbe.z_3.ld1.psl.v1.0.0-low.upf'},1.04,runs/smoke/smoke_al_fcc_primitive_scf/pw.out

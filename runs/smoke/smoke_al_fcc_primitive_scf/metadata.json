@@ -1,0 +1,35 @@
+{
+  "case_id": "smoke_al_fcc_primitive_scf",
+  "case_type": "smoke",
+  "composition": "Al",
+  "atom_count": 1,
+  "calculation_type": "scf",
+  "scientific_warning": "Scientifically unconverged smoke-test settings.",
+  "required_symbols": [
+    "Al"
+  ],
+  "calculation_settings": {
+    "calculation": "scf",
+    "ecutwfc": 20,
+    "ecutrho": 160,
+    "kpoints": [
+      2,
+      2,
+      2
+    ],
+    "occupations": "smearing",
+    "smearing": "mv",
+    "degauss": 0.02,
+    "conv_thr": 1e-06,
+    "forc_conv_thr": 0.001,
+    "press_conv_thr": 1.0,
+    "electron_maxstep": 40,
+    "nstep": 0,
+    "disk_io": "low",
+    "tstress": true,
+    "tprnfor": true
+  },
+  "pseudopotential_identifiers": {
+    "Al": "Al.us.pbe.z_3.ld1.psl.v1.0.0-low.upf"
+  }
+}

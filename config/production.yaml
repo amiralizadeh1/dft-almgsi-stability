@@ -11,12 +11,12 @@ settings:
   qe_command: pw.x
   pseudo_dir: pseudos
   input_dft: PBE
-  ecutwfc_ry: CHOOSE_ME
-  ecutrho_ry: CHOOSE_ME
-  kpoints: CHOOSE_ME
+  ecutwfc_ry: 50
+  ecutrho_ry: 400
+  kpoints: [8, 8, 8]
   occupations: smearing
   smearing: mv
-  degauss_ry: CHOOSE_ME
+  degauss_ry: 0.02
   si_occupations: fixed
   conv_thr: 1.0e-8
   forc_conv_thr: 1.0e-4

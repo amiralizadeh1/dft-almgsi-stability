@@ -1,0 +1,57 @@
+{
+  "case_id": "Al31Si",
+  "case_type": "defect",
+  "composition": "Al31Si",
+  "atom_count": 32,
+  "cell_vectors_angstrom": [
+    [
+      8.1,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      8.1,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      8.1
+    ]
+  ],
+  "solute_symbol": "Si",
+  "solute_index": 1,
+  "required_symbols": [
+    "Al",
+    "Si"
+  ],
+  "calculation_type": "relax",
+  "fixed_cell_uses_optimised_al_lattice": true,
+  "calculation_settings": {
+    "calculation": "relax",
+    "ecutwfc": 50,
+    "ecutrho": 400,
+    "kpoints": [
+      8,
+      8,
+      8
+    ],
+    "occupations": "smearing",
+    "smearing": "mv",
+    "degauss": 0.02,
+    "conv_thr": 1e-08,
+    "forc_conv_thr": 0.0001,
+    "press_conv_thr": 0.5,
+    "electron_maxstep": 120,
+    "nstep": null,
+    "disk_io": "low",
+    "tstress": true,
+    "tprnfor": true
+  },
+  "pseudopotential_identifiers": {
+    "Al": "Al.us.pbe.z_3.ld1.psl.v1.0.0-low.upf",
+    "Mg": "Mg.us.pbe.z_10.uspp.gbrv.v1.4.upf",
+    "Si": "Si.us.pbe.z_4.ld1.psl.v1.0.0-high.upf"
+  }
+}

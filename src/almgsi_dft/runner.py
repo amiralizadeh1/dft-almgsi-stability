@@ -7,6 +7,7 @@ import shlex
 import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
+from time import perf_counter
 from typing import Any
 
 from .config import WorkflowConfig, ensure_pseudopotentials, required_symbols
@@ -92,14 +93,60 @@ def run_case_list(
     if not case_ids:
         raise RunError("Case list is empty; refusing to run implicit production set")
     print("Warning: production DFT calculations may be computationally expensive.")
+    print(f"Run set contains {len(case_ids)} explicit cases. Cases will run sequentially.")
     failures = 0
-    for case_id in case_ids:
+    completed = 0
+    total = len(case_ids)
+    for index, case_id in enumerate(case_ids, start=1):
+        remaining_after_this = total - index
+        print(f"[{index}/{total}] START {case_id} (remaining after this: {remaining_after_this})", flush=True)
+        start = perf_counter()
         try:
-            run_case(config, run_directory, case_id, nprocs)
+            status = run_case(config, run_directory, case_id, nprocs)
         except Exception as exc:
             failures += 1
-            print(f"Case {case_id} failed: {exc}")
+            elapsed = _format_elapsed(perf_counter() - start)
+            print(
+                f"[{index}/{total}] FAILED {case_id} after {elapsed}: {exc}. "
+                f"Completed {completed}/{total}; remaining {remaining_after_this}; failures {failures}/{failure_limit}.",
+                flush=True,
+            )
             if failures >= failure_limit:
                 print(f"Stopping after failure limit {failure_limit}")
                 return 1
+            continue
+
+        elapsed = _format_elapsed(perf_counter() - start)
+        valid_result = bool(status.get("valid_result"))
+        status_label = str(status.get("status", "unknown"))
+        if status_label == "completed" and valid_result:
+            completed += 1
+            print(
+                f"[{index}/{total}] DONE {case_id} after {elapsed}. "
+                f"Completed {completed}/{total}; remaining {remaining_after_this}.",
+                flush=True,
+            )
+        else:
+            failures += 1
+            print(
+                f"[{index}/{total}] FINISHED WITH INVALID RESULT {case_id} after {elapsed} "
+                f"(status={status_label}, valid={valid_result}). "
+                f"Completed {completed}/{total}; remaining {remaining_after_this}; failures {failures}/{failure_limit}.",
+                flush=True,
+            )
+            if failures >= failure_limit:
+                print(f"Stopping after failure limit {failure_limit}")
+                return 1
+    print(f"Run set finished. Valid completed cases: {completed}/{total}; failures: {failures}.")
     return 0
+
+
+def _format_elapsed(seconds: float) -> str:
+    """Format elapsed runtime for human-readable progress messages."""
+    if seconds < 60:
+        return f"{seconds:.1f}s"
+    minutes, remainder = divmod(seconds, 60)
+    if minutes < 60:
+        return f"{int(minutes)}m {remainder:.0f}s"
+    hours, minutes = divmod(minutes, 60)
+    return f"{int(hours)}h {int(minutes)}m"

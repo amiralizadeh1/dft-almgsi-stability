@@ -1,0 +1,48 @@
+&CONTROL
+   calculation      = 'vc-relax'
+   tstress          = .true.
+   tprnfor          = .true.
+   outdir           = 'qe_tmp'
+   prefix           = 'ref_Al_fcc'
+   disk_io          = 'low'
+   pseudo_dir       = '../../../pseudos'
+/
+&SYSTEM
+   ecutwfc          = 50
+   ecutrho          = 400
+   occupations      = 'smearing'
+   degauss          = 0.02
+   smearing         = 'mv'
+   input_dft        = 'PBE'
+   ntyp             = 1
+   nat              = 1
+   ibrav            = 0
+/
+&ELECTRONS
+   electron_maxstep = 120
+   conv_thr         = 1e-08
+/
+&IONS
+   ion_dynamics     = 'bfgs'
+/
+&CELL
+   press_conv_thr   = 0.5
+/
+&FCP
+/
+&RISM
+/
+ATOMIC_SPECIES
+Al 26.9815385 Al.us.pbe.z_3.ld1.psl.v1.0.0-low.upf
+
+K_POINTS automatic
+8 8 8  0 0 0
+
+CELL_PARAMETERS angstrom
+0.00000000000000 2.02500000000000 2.02500000000000
+2.02500000000000 0.00000000000000 2.02500000000000
+2.02500000000000 2.02500000000000 0.00000000000000
+
+ATOMIC_POSITIONS angstrom
+Al 0.0000000000 0.0000000000 0.0000000000  
+

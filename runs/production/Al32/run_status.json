@@ -1,0 +1,23 @@
+{
+  "case_id": "Al32",
+  "status": "completed",
+  "start_time_utc": "2026-07-14T09:45:20.164563+00:00",
+  "command": [
+    "pw.x"
+  ],
+  "git_commit": "85c5ee69115f0025c69c5c7071c51954a9bc3eaa",
+  "output_path": "runs/production/Al32/pw.out",
+  "job_done": true,
+  "scf_converged": true,
+  "ionic_converged": true,
+  "fatal_error": false,
+  "total_energy_ev": -2193.80843229289,
+  "atom_count": 32,
+  "scf_iterations": 8,
+  "wall_time_seconds": null,
+  "final_force_ry_bohr": 1e-05,
+  "final_pressure_kbar": -6.7,
+  "valid_result": true,
+  "returncode": 0,
+  "finish_time_utc": "2026-07-14T11:36:59.714161+00:00"
+}

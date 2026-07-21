@@ -233,6 +233,8 @@ python -m almgsi_dft.cli generate --config config/convergence.yaml --output runs
 python -m almgsi_dft.cli run-local --run-directory runs/convergence --case conv_cutoff_al_ecut40 --nprocs 1
 ```
 
+Current convergence settings selected for production are `ecutwfc = 50 Ry`, `ecutrho = 400 Ry` and `kpoints = [8, 8, 8]`. These were chosen after running the generated cutoff cases at 30, 40, 50 and 60 Ry and k-point cases at 4x4x4, 6x6x6 and 8x8x8. The collected convergence outputs are in `results/convergence_results.csv`, `results/cutoff_convergence.csv` and `results/kpoint_convergence.csv`.
+
 ## Elemental Structures And Production Inputs
 Elemental references support `vc-relax` for FCC Al, HCP Mg and diamond Si. Fixed-cell defect relaxations use the configured optimised Al lattice constant.
 
@@ -244,6 +246,15 @@ python -m almgsi_dft.cli generate --config config/production.yaml --output runs/
 ```
 
 Generation never launches calculations. Complete 32-atom relaxations and convergence studies may take substantial time on an ordinary laptop.
+
+Current production state:
+
+- Completed valid local production calculations: `ref_Al_fcc`, `ref_Mg_hcp`, `ref_Si_diamond`, `Al32`, `Al31Mg`, `Al31Si` and `Al30MgSi_far`.
+- Heavy Mg-Si pair calculations still need successful completion: `Al30MgSi_1NN` and `Al30MgSi_2NN`.
+- `Al30MgSi_far` completed with `valid_result = true`, final energy `-3916.6892268655733 eV` and QE `JOB DONE`.
+- Local WSL attempts for `Al30MgSi_1NN` and `Al30MgSi_2NN` stopped around the first SCF step without a QE `JOB DONE` marker. These cases are substantially heavier because symmetry reduction leaves more irreducible k-points, so they are better candidates for Young HPC or another scheduler-managed machine.
+
+Each production case directory under `runs/production/<case_id>/` contains `pw.in`, `metadata.json`, `run_status.json`, `structure_initial.cif` and, after execution, `pw.out`, `pw.err` and usually `structure_final.cif` for valid relaxations. `run_status.json` is the quickest status check; `pw.out` should contain `JOB DONE` for a successful QE run.
 
 ## Run One Calculation Locally
 

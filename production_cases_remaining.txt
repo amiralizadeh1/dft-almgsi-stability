@@ -1,0 +1,3 @@
+Al30MgSi_1NN
+Al30MgSi_2NN
+Al30MgSi_far

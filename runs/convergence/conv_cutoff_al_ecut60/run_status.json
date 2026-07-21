@@ -1,4 +1,23 @@
 {
   "case_id": "conv_cutoff_al_ecut60",
-  "status": "generated"
+  "status": "completed",
+  "start_time_utc": "2026-07-14T09:06:08.016164+00:00",
+  "command": [
+    "pw.x"
+  ],
+  "git_commit": "85c5ee69115f0025c69c5c7071c51954a9bc3eaa",
+  "output_path": "runs/convergence/conv_cutoff_al_ecut60/pw.out",
+  "job_done": true,
+  "scf_converged": true,
+  "ionic_converged": false,
+  "fatal_error": false,
+  "total_energy_ev": -68.55193499783508,
+  "atom_count": 1,
+  "scf_iterations": 6,
+  "wall_time_seconds": 6.8,
+  "final_force_ry_bohr": 0.0,
+  "final_pressure_kbar": -4.91,
+  "valid_result": true,
+  "returncode": 0,
+  "finish_time_utc": "2026-07-14T09:06:15.426189+00:00"
 }

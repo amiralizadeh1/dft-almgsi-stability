@@ -1,0 +1,23 @@
+{
+  "case_id": "ref_Si_diamond",
+  "status": "completed",
+  "start_time_utc": "2026-07-14T09:43:24.047553+00:00",
+  "command": [
+    "pw.x"
+  ],
+  "git_commit": "85c5ee69115f0025c69c5c7071c51954a9bc3eaa",
+  "output_path": "runs/production/ref_Si_diamond/pw.out",
+  "job_done": true,
+  "scf_converged": true,
+  "ionic_converged": true,
+  "fatal_error": false,
+  "total_energy_ev": -310.7530883267634,
+  "atom_count": 2,
+  "scf_iterations": 10,
+  "wall_time_seconds": 55.34,
+  "final_force_ry_bohr": 0.0,
+  "final_pressure_kbar": 0.02,
+  "valid_result": true,
+  "returncode": 0,
+  "finish_time_utc": "2026-07-14T09:45:20.129566+00:00"
+}

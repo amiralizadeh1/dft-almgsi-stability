@@ -1,8 +1,0 @@
-# Copy values into your run configuration after manually downloading SSSP Efficiency UPF files.
-# These filenames are obvious placeholders, not recommendations.
-pseudopotentials:
-  pseudo_dir: pseudos
-  files:
-    Al: Al.us.pbe.z_3.ld1.psl.v1.0.0-low.upf
-    Mg: Mg.us.pbe.z_10.uspp.gbrv.v1.4.upf
-    Si: Si.us.pbe.z_4.ld1.psl.v1.0.0-high.upf

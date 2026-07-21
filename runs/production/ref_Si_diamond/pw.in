@@ -1,0 +1,47 @@
+&CONTROL
+   calculation      = 'vc-relax'
+   tstress          = .true.
+   tprnfor          = .true.
+   outdir           = 'qe_tmp'
+   prefix           = 'ref_Si_diamond'
+   disk_io          = 'low'
+   pseudo_dir       = '../../../pseudos'
+/
+&SYSTEM
+   ecutwfc          = 50
+   ecutrho          = 400
+   occupations      = 'fixed'
+   input_dft        = 'PBE'
+   ntyp             = 1
+   nat              = 2
+   ibrav            = 0
+/
+&ELECTRONS
+   electron_maxstep = 120
+   conv_thr         = 1e-08
+/
+&IONS
+   ion_dynamics     = 'bfgs'
+/
+&CELL
+   press_conv_thr   = 0.5
+/
+&FCP
+/
+&RISM
+/
+ATOMIC_SPECIES
+Si 28.085 Si.us.pbe.z_4.ld1.psl.v1.0.0-high.upf
+
+K_POINTS automatic
+8 8 8  0 0 0
+
+CELL_PARAMETERS angstrom
+0.00000000000000 2.71500000000000 2.71500000000000
+2.71500000000000 0.00000000000000 2.71500000000000
+2.71500000000000 2.71500000000000 0.00000000000000
+
+ATOMIC_POSITIONS angstrom
+Si 0.0000000000 0.0000000000 0.0000000000  
+Si 1.3575000000 1.3575000000 1.3575000000  
+

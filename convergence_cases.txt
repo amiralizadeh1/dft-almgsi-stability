@@ -1,0 +1,7 @@
+conv_cutoff_al_ecut30
+conv_cutoff_al_ecut40
+conv_cutoff_al_ecut50
+conv_cutoff_al_ecut60
+conv_kpoints_al_4x4x4
+conv_kpoints_al_6x6x6
+conv_kpoints_al_8x8x8

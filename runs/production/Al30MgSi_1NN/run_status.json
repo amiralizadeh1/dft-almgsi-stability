@@ -1,0 +1,24 @@
+{
+  "case_id": "Al30MgSi_1NN",
+  "status": "completed",
+  "start_time_utc": "2026-07-19T13:48:03.035138+00:00",
+  "command": [
+    "pw.x"
+  ],
+  "git_commit": "85c5ee69115f0025c69c5c7071c51954a9bc3eaa",
+  "output_path": "runs/production/Al30MgSi_1NN/pw.out",
+  "job_done": true,
+  "scf_converged": true,
+  "ionic_converged": true,
+  "fatal_error": false,
+  "total_energy_ev": -3916.7089325351503,
+  "atom_count": 32,
+  "scf_iterations": 11,
+  "wall_time_seconds": 8.14,
+  "final_force_ry_bohr": 0.003198,
+  "final_pressure_kbar": -2.86,
+  "valid_result": true,
+  "returncode": 0,
+  "finish_time_utc": "2026-07-22T11:44:53.993200+00:00",
+  "source": "young_hpc_copied_output"
+}

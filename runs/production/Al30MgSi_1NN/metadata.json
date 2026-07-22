@@ -1,0 +1,61 @@
+{
+  "case_id": "Al30MgSi_1NN",
+  "case_type": "defect",
+  "composition": "Al30MgSi",
+  "atom_count": 32,
+  "cell_vectors_angstrom": [
+    [
+      8.1,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      8.1,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      8.1
+    ]
+  ],
+  "mg_index": 0,
+  "si_index": 1,
+  "neighbour_shell": 1,
+  "initial_pair_distance_angstrom": 2.8637824638055176,
+  "shell_tolerance_angstrom": 0.03,
+  "required_symbols": [
+    "Al",
+    "Mg",
+    "Si"
+  ],
+  "calculation_type": "relax",
+  "fixed_cell_uses_optimised_al_lattice": true,
+  "calculation_settings": {
+    "calculation": "relax",
+    "ecutwfc": 50,
+    "ecutrho": 400,
+    "kpoints": [
+      8,
+      8,
+      8
+    ],
+    "occupations": "smearing",
+    "smearing": "mv",
+    "degauss": 0.02,
+    "conv_thr": 1e-08,
+    "forc_conv_thr": 0.0001,
+    "press_conv_thr": 0.5,
+    "electron_maxstep": 120,
+    "nstep": null,
+    "disk_io": "low",
+    "tstress": true,
+    "tprnfor": true
+  },
+  "pseudopotential_identifiers": {
+    "Al": "Al.us.pbe.z_3.ld1.psl.v1.0.0-low.upf",
+    "Mg": "Mg.us.pbe.z_10.uspp.gbrv.v1.4.upf",
+    "Si": "Si.us.pbe.z_4.ld1.psl.v1.0.0-high.upf"
+  }
+}

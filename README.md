@@ -249,12 +249,23 @@ Generation never launches calculations. Complete 32-atom relaxations and converg
 
 Current production state:
 
-- Completed valid local production calculations: `ref_Al_fcc`, `ref_Mg_hcp`, `ref_Si_diamond`, `Al32`, `Al31Mg`, `Al31Si` and `Al30MgSi_far`.
-- Heavy Mg-Si pair calculations still need successful completion: `Al30MgSi_1NN` and `Al30MgSi_2NN`.
-- `Al30MgSi_far` completed with `valid_result = true`, final energy `-3916.6892268655733 eV` and QE `JOB DONE`.
-- Local WSL attempts for `Al30MgSi_1NN` and `Al30MgSi_2NN` stopped around the first SCF step without a QE `JOB DONE` marker. These cases are substantially heavier because symmetry reduction leaves more irreducible k-points, so they are better candidates for Young HPC or another scheduler-managed machine.
+- Completed valid production calculations: `ref_Al_fcc`, `ref_Mg_hcp`, `ref_Si_diamond`, `Al32`, `Al31Mg`, `Al31Si`, `Al30MgSi_1NN`, `Al30MgSi_2NN` and `Al30MgSi_far`.
+- `Al30MgSi_1NN` and `Al30MgSi_2NN` initially stopped during local WSL runs around the first SCF step without a QE fatal error or `JOB DONE` marker. The existing generated `pw.in` files were then run unchanged on the UCL Young Tier-2 HPC facility.
+- No structures, DFT settings, pseudopotentials, cutoffs, k-points, smearing settings, convergence thresholds or relaxation settings were changed for the Young runs.
+- Final Mg-Si pair binding energies, where positive values indicate attraction, are: `1NN = 0.0426 eV` at `2.8603 Angstrom`, `2NN = 0.0066 eV` at `4.0500 Angstrom` and `far = 0.0229 eV` at `7.0148 Angstrom`.
 
 Each production case directory under `runs/production/<case_id>/` contains `pw.in`, `metadata.json`, `run_status.json`, `structure_initial.cif` and, after execution, `pw.out`, `pw.err` and usually `structure_final.cif` for valid relaxations. `run_status.json` is the quickest status check; `pw.out` should contain `JOB DONE` for a successful QE run.
+
+## Young HPC Completion
+The heavy `Al30MgSi_1NN` and `Al30MgSi_2NN` calculations were completed on the UCL Young Tier-2 HPC facility after the local WSL attempts did not finish. The Young runs used the existing generated QE inputs directly:
+
+```bash
+gerun pw.x -in pw.in > pw.out 2> pw.err
+```
+
+The Young environment used SGE/`qsub`, `gerun`, Quantum ESPRESSO `pw.x` from `quantum-espresso/6.5-impi/intel-2018`, PWSCF v6.5 and 8 MPI ranks per case. The non-invasive job scripts are stored in `hpc/young/`. They document the module loading, MPI launch command and output handling used for these two cases without changing the scientific workflow.
+
+The Young-completed `pw.out` and `pw.err` files were copied back into the local `runs/production/Al30MgSi_1NN/` and `runs/production/Al30MgSi_2NN/` folders, parsed locally with the existing Python workflow, and included in the final `results/results.csv`, `results/pair_binding_energies.csv` and `results/RESULTS.md` outputs.
 
 ## Run One Calculation Locally
 
@@ -298,3 +309,18 @@ No fake QE outputs are included. No DFT result is invented, estimated or interpo
 - ASE documentation.
 - SSSP Efficiency pseudopotential library.
 - Perdew, Burke and Ernzerhof, generalized gradient approximation.
+
+## Citation And Acknowledgements
+Quantum ESPRESSO requests citation of:
+
+- P. Giannozzi et al., Journal of Physics: Condensed Matter 21, 395502 (2009).
+- P. Giannozzi et al., Journal of Physics: Condensed Matter 29, 465901 (2017).
+- See also: <http://www.quantum-espresso.org/quote>.
+
+Calculations completed on Young should acknowledge the facility using:
+
+```text
+We are grateful to the UK Materials and Molecular Modelling Hub for computational resources, which is partially funded by EPSRC (EP/T022213/1, EP/W032260/1 and EP/P020194/1).
+```
+
+If MCC or UKCP resources were used, follow the combined acknowledgement guidance in the Young documentation: <https://www.rc.ucl.ac.uk/docs/Clusters/Young/#acknowledging-the-use-of-young-in-publications>.

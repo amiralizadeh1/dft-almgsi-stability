@@ -1,1 +1,3 @@
 solute,case_id,formation_energy_ev,sign_convention
+Mg,Al31Mg,0.10460886820237647,E(defect)-E(Al_N)+mu_Al-mu_X
+Si,Al31Si,0.44214393730430857,E(defect)-E(Al_N)+mu_Al-mu_X

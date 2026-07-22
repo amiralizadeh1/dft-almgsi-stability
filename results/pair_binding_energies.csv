@@ -1,1 +1,4 @@
-case_id,distance_angstrom,binding_energy_ev
+case_id,neighbour_shell,distance_angstrom,binding_energy_ev,sign_convention
+Al30MgSi_1NN,1.0,2.860324401791323,0.04263330334333659,positive means attraction
+Al30MgSi_2NN,2.0,4.05,0.0065539984339011426,positive means attraction
+Al30MgSi_far,5.0,7.014805770653953,0.02292763376590301,positive means attraction

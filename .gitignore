@@ -55,3 +55,8 @@ Thumbs.db
 *.swo
 
 config/pseudopotentials.yaml
+
+# Private HPC deployment files can contain usernames, allocations or paths.
+hpc/young/*.sh
+!hpc/young/*.template.sh
+hpc/young/private_notes.md

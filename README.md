@@ -2,8 +2,6 @@
 
 This repository automates a small Quantum ESPRESSO plus ASE Density Functional Theory workflow for early Mg-Si clustering in aluminium. It supports a local Linux/WSL workflow for setup, convergence testing, input generation, parsing and analysis, and it also records the minimal Young HPC deployment used to complete the two heavier Mg-Si pair calculations.
 
-The scientific workflow remains Python-driven and reproducible: ASE generates Quantum ESPRESSO inputs, `pw.x` performs the DFT calculations, and the Python tools collect, analyse and report the results. For local execution, the runner can launch `pw.x` directly under WSL/Linux. For HPC execution, this repository includes sanitized SGE/Young job-script templates under `hpc/young/` showing how the existing generated `pw.in` files were run with `qsub`, `gerun` and the Young Quantum ESPRESSO module. Pseudopotentials and private HPC details such as usernames, allocations, SSH keys, Scratch paths and job IDs are intentionally not committed.
-
 ## Scientific Motivation
 Al-Mg-Si alloys strengthen through solute clustering and precipitation. The earliest Mg-Si associations influence later precipitation pathways, but their energetics are hard to isolate experimentally. DFT gives controlled zero-temperature total-energy differences for elemental references, isolated solutes and Mg-Si pairs.
 
@@ -59,6 +57,8 @@ There are three separate pieces:
 
 ## HPC Execution Model
 Heavier production cases, especially `Al30MgSi_1NN` and `Al30MgSi_2NN`, may exceed ordinary laptop/WSL resources. For those cases this repository records a minimal Young HPC deployment that runs the existing generated `pw.in` files directly on compute nodes. The scientific settings are not regenerated or altered on the cluster.
+
+The scientific workflow remains Python-driven and reproducible: ASE generates Quantum ESPRESSO inputs, `pw.x` performs the DFT calculations, and the Python tools collect, analyse and report the results. For local execution, the runner can launch `pw.x` directly under WSL/Linux. For HPC execution, this repository includes sanitized SGE/Young job-script templates under `hpc/young/` showing how the existing generated `pw.in` files were run with `qsub`, `gerun` and the Young Quantum ESPRESSO module. Pseudopotentials and private HPC details such as usernames, allocations, SSH keys, Scratch paths and job IDs are intentionally not committed.
 
 The HPC path uses several separate pieces:
 

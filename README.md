@@ -1,6 +1,8 @@
 # First-Principles Stability and Early Solute Clustering in Al-Mg-Si
 
-This local Linux/WSL repository automates a small Quantum ESPRESSO plus ASE Density Functional Theory workflow for early Mg-Si clustering in aluminium. It intentionally contains no HPC, scheduler, SSH, remote-transfer, Slurm, SGE, PBS, Young-specific or cluster implementation.
+This repository automates a small Quantum ESPRESSO plus ASE Density Functional Theory workflow for early Mg-Si clustering in aluminium. It supports a local Linux/WSL workflow for setup, convergence testing, input generation, parsing and analysis, and it also records the minimal Young HPC deployment used to complete the two heavier Mg-Si pair calculations.
+
+The scientific workflow remains Python-driven and reproducible: ASE generates Quantum ESPRESSO inputs, `pw.x` performs the DFT calculations, and the Python tools collect, analyse and report the results. For local execution, the runner can launch `pw.x` directly under WSL/Linux. For HPC execution, this repository includes sanitized SGE/Young job-script templates under `hpc/young/` showing how the existing generated `pw.in` files were run with `qsub`, `gerun` and the Young Quantum ESPRESSO module. Pseudopotentials and private HPC details such as usernames, allocations, SSH keys, Scratch paths and job IDs are intentionally not committed.
 
 ## Scientific Motivation
 Al-Mg-Si alloys strengthen through solute clustering and precipitation. The earliest Mg-Si associations influence later precipitation pathways, but their energetics are hard to isolate experimentally. DFT gives controlled zero-temperature total-energy differences for elemental references, isolated solutes and Mg-Si pairs.
@@ -27,16 +29,68 @@ E_bind(r) = E(Al_(N-1)Mg) + E(Al_(N-1)Si) - E(Al_(N-2)MgSi; r) - E(Al_N)
 Positive `E_bind` means attraction. Negative `E_bind` means the pair is less stable than separated substitutions under the same reference convention. `mu_Al`, `mu_Mg` and `mu_Si` are zero-temperature DFT bulk reference chemical potentials from optimised elemental structures, not finite-temperature thermodynamic chemical potentials.
 
 ## Repository Structure
-`src/almgsi_dft` contains configuration, structures, neighbour shells, QE input generation, local execution, parsing, energetics, convergence, analysis, plotting and reporting. `config` contains smoke and example profiles. `pseudos` is for manually downloaded SSSP Efficiency UPF files. `runs`, `results` and `figures` hold generated inputs and outputs.
+
+```text
+dft-almgsi-stability/
+├── src/almgsi_dft/          # Python workflow: config, structures, QE inputs, local runner, parsing, energetics, analysis, reporting
+├── config/                  # Smoke, convergence and production YAML profiles
+├── hpc/young/               # Sanitized Young SGE job templates and deployment notes
+│   ├── README.md
+│   ├── run_al30mgsi_1nn.template.sh
+│   └── run_al30mgsi_2nn.template.sh
+├── pseudos/                 # Local SSSP Efficiency UPF files (required at runtime, not committed)
+├── runs/                    # Generated QE case directories and selected outputs
+├── results/                 # Collected CSVs, binding-energy tables, plots and RESULTS.md
+├── figures/                 # Optional figure outputs
+├── scripts/                 # Helper scripts
+└── tests/                   # Unit and integration tests
+```
+
+`src/almgsi_dft` contains the scientific workflow. `config` holds editable YAML profiles. `hpc/young` documents the minimal Young Tier-2 deployment: sanitized SGE/`qsub` job templates for `Al30MgSi_1NN` and `Al30MgSi_2NN`, using `gerun` and the Young Quantum ESPRESSO module. Private run scripts, usernames, allocations, SSH keys, Scratch paths and job IDs are intentionally not committed. `pseudos` stores manually downloaded UPF files needed by `pw.x`. `runs`, `results` and `figures` hold generated inputs, selected outputs, tables, reports and plots.
 
 ## Local Execution Model
-This project can be edited from Windows, but the recommended calculation runtime is WSL/Linux because Quantum ESPRESSO is normally installed and run as a Linux scientific code. The Python workflow prepares inputs, launches `pw.x`, parses outputs and writes tables/reports. Quantum ESPRESSO does the actual DFT calculation.
+This project can be edited from Windows, but the recommended local calculation runtime is WSL/Linux because Quantum ESPRESSO is normally installed and run as a Linux scientific code. The Python workflow prepares inputs, launches `pw.x`, parses outputs and writes tables/reports. Quantum ESPRESSO does the actual DFT calculation.
 
 There are three separate pieces:
 
 - The project folder, for example `/mnt/c/Users/YOUR_WINDOWS_USER/dft-almgsi-stability` when accessed from WSL.
 - A Python virtual environment, preferably on the WSL Linux filesystem.
 - Quantum ESPRESSO, which provides the `pw.x` executable.
+
+## HPC Execution Model
+Heavier production cases, especially `Al30MgSi_1NN` and `Al30MgSi_2NN`, may exceed ordinary laptop/WSL resources. For those cases this repository records a minimal Young HPC deployment that runs the existing generated `pw.in` files directly on compute nodes. The scientific settings are not regenerated or altered on the cluster.
+
+The HPC path uses several separate pieces:
+
+- SSH access to the Young login node.
+- A Scratch-based clone of this repository.
+- Separately transferred UPF pseudopotentials in `pseudos/`.
+- Young environment modules for Quantum ESPRESSO and MPI.
+- Sanitized SGE job-script templates under `hpc/young/`.
+- Scheduler submission with `qsub`, monitoring with `qstat`, and MPI launch with `gerun`.
+
+Typical Young workflow:
+
+1. Clone or pull the repository under Scratch.
+2. Transfer only the required UPF files into `pseudos/`.
+3. Copy a sanitized template into a private local script:
+
+```bash
+cp hpc/young/run_al30mgsi_1nn.template.sh hpc/young/run_al30mgsi_1nn.sh
+```
+
+4. Replace `YOUR_YOUNG_PROJECT` with the project/allocation name returned by `budgets`.
+5. Submit from the repository root:
+
+```bash
+qsub hpc/young/run_al30mgsi_1nn.sh
+qstat -u "$USER"
+```
+
+6. Confirm success with `JOB DONE` in `pw.out` and a clean scheduler exit status.
+7. Copy completed `pw.out` files back to the local repository and run the existing Python `collect`, `analyse` and `report` commands locally.
+
+Validated Young settings for the completed pair cases were SGE/`qsub`, `gerun`, `quantum-espresso/6.5-impi/intel-2018`, PWSCF v6.5 and 8 MPI ranks. Private details such as usernames, allocations, SSH keys, full Scratch paths, node names and job IDs are intentionally omitted from the public templates. See `hpc/young/README.md` for the template details.
 
 ## Install Quantum ESPRESSO Under WSL Or Linux
 On Ubuntu/WSL, install QE with:
@@ -59,7 +113,7 @@ If `which pw.x` prints a path such as `/usr/bin/pw.x`, QE is visible to the runn
 export QE_PW_COMMAND="pw.x"
 ```
 
-Local commands such as `mpirun -np 4 pw.x` are accepted as an executable command string. No scheduler or cluster execution is implemented.
+Local commands such as `mpirun -np 4 pw.x` are accepted as an executable command string. Cluster execution uses the separate Young SGE templates in `hpc/young/` rather than the local Python runner.
 
 ## Create The Python Virtual Environment In WSL
 If the project is stored on the Windows drive, do not create the Linux virtual environment inside `/mnt/c/...`. Create it inside your WSL home directory instead:
@@ -302,7 +356,7 @@ make archive-results
 The archive excludes pseudopotentials, wavefunctions, QE scratch directories, large binaries and `.venv`.
 
 ## Limitations And Future Extensions
-No fake QE outputs are included. No DFT result is invented, estimated or interpolated. Future KMC or Monte Carlo work could use validated binding trends as model inputs. Future HPC support is intentionally conceptual here: the code separates structure generation, input generation, parsing and analysis so a new execution layer could be added later without rewriting the science modules.
+No fake QE outputs are included. No DFT result is invented, estimated or interpolated. Future KMC or Monte Carlo work could use validated binding trends as model inputs. Full scheduler integration inside the Python CLI is not implemented; Young HPC execution currently uses external SGE templates that launch `pw.x` on existing generated inputs. The code still separates structure generation, input generation, parsing and analysis so a native HPC execution layer could be added later without rewriting the science modules.
 
 ## References
 - Quantum ESPRESSO documentation.
